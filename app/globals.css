@@ -17,6 +17,8 @@
 }
 
 body {
+  background-color: #0b101e;
+  font-size: 16px;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,4 +26,12 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+
+.bg {
+  background-image: url("https://solana.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsolana-ring.630baeb2.jpg&w=1920&q=75");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
 }
