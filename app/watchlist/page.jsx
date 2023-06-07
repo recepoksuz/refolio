@@ -42,7 +42,7 @@ const Page = () => {
     }
 
     getCoin()
-  }, [localStorage.getItem(accountAdress)]);
+  }, []);
 
   return (
     <div className='flex justify-center items-center'>

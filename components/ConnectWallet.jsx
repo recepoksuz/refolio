@@ -37,7 +37,7 @@ const ConnectWallet = () => {
     return (
         <div>
             <button onClick={connectToWallet} className='px-3 py-2 rounded-full font-semibold hover:bg-sky-900 transition-all text-white border-sky-600 border-2 :'>
-                {isActive !== false ? "Disconnect" : "Connect Wallet"}
+                {isActive !== false ? "Go List Page" : "Connect Wallet"}
             </button>
         </div>
     )
