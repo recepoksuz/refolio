@@ -1,14 +1,18 @@
 "uuse client"
 import React, { useEffect, useState } from 'react'
-import { AiOutlineStar, AiFillStar } from "react-icons/ai"
+import { AiOutlineStar, AiFillStar, AiTwotoneHome, AiOutlineDollarCircle } from "react-icons/ai"
 import { useStorken } from '@/data/storken/storken'
 
 
 const Table = ({ data }) => {
     const [accountAdress, AccountAdress] = useStorken("accountAdress")
     const addresses = JSON.parse(localStorage.getItem(accountAdress)) || [];
+    const [iconStar, setIconStar ] = useState(false)
 
     const isCoinInWatchlist = (id) => addresses.includes(id);
+
+    useEffect(() => {
+    }, [iconStar]);
     
     const localController = (id) => {
         // ID'nin dizide olup olmadığını kontrol et
@@ -18,10 +22,11 @@ const Table = ({ data }) => {
         if (!idExists) {
             addresses.push(id);
             localStorage.setItem(accountAdress, JSON.stringify(addresses));
-
+            setIconStar(!iconStar)
         } else {
             const updatedAddresses = addresses.filter(ids => ids !== id);
             localStorage.setItem(accountAdress, JSON.stringify(updatedAddresses));
+            setIconStar(!iconStar)
         }
     }
 
@@ -72,6 +77,7 @@ const Table = ({ data }) => {
                                         ${coin.quote.USD.volume_24h.toFixed(2)}
                                     </td>
                                     <td key={i} onClick={() => localController(coin.id)} class="flex justify-center text-right text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">
+                                        {/* {addresses.includes(coin.id) ? <AiFillStar />  : <AiOutlineStar />} */}
                                         {isCoinInWatchlist(coin.id) ? <AiFillStar /> : <AiOutlineStar />}
                                     </td>
                                 </tr>
