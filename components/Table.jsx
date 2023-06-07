@@ -1,32 +1,28 @@
 "uuse client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineStar, AiFillStar } from "react-icons/ai"
 import { useStorken } from '@/data/storken/storken'
-import { useState } from 'react'
 
 
 const Table = ({ data }) => {
     const [accountAdress, AccountAdress] = useStorken("accountAdress")
-    const [localCoinController, setLocalCoinController] = useState(false)
     const addresses = JSON.parse(localStorage.getItem(accountAdress)) || [];
 
+    const isCoinInWatchlist = (id) => addresses.includes(id);
+    
     const localController = (id) => {
-        // Local Storage'dan "adres" anahtarının değerini alın
-        // const addresses = JSON.parse(localStorage.getItem(accountAdress)) || [];
-
-        // ID'nin dizide olup olmadığını kontrol edin
+        // ID'nin dizide olup olmadığını kontrol et
         const idExists = addresses.includes(id);
-        setLocalCoinController(idExists)
 
         // ID dizide yoksa, yeni ID'yi ekleyin
         if (!idExists) {
             addresses.push(id);
             localStorage.setItem(accountAdress, JSON.stringify(addresses));
+
         } else {
             const updatedAddresses = addresses.filter(ids => ids !== id);
             localStorage.setItem(accountAdress, JSON.stringify(updatedAddresses));
         }
-        console.log(id)
     }
 
     return (
@@ -75,8 +71,8 @@ const Table = ({ data }) => {
                                     <td class="px-6 py-4 text-right">
                                         ${coin.quote.USD.volume_24h.toFixed(2)}
                                     </td>
-                                    <td onClick={() => localController(coin.id)} class="flex justify-center text-right text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">
-                                        {addresses.includes(coin.id) ? <AiFillStar /> : <AiOutlineStar />}
+                                    <td key={i} onClick={() => localController(coin.id)} class="flex justify-center text-right text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">
+                                        {isCoinInWatchlist(coin.id) ? <AiFillStar /> : <AiOutlineStar />}
                                     </td>
                                 </tr>
                             ))
